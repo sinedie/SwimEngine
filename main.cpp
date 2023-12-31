@@ -5,7 +5,7 @@
 #include <Game.h>
 
 int main(int argc, char *args[]) {
-  Game game = Game();
+  SwimGame game = SwimGame();
 
   if (!game.init("RogueLike")) {
     std::cout << "Failed to initialize!" << std::endl;

@@ -1,10 +1,10 @@
 #include <Game.h>
 
-SDL_Renderer *Game::renderer = nullptr;
+SDL_Renderer *SwimGame::renderer = nullptr;
 
-bool Game::isRunning() { return running; }
+bool SwimGame::isRunning() { return running; }
 
-bool Game::init(char *name) {
+bool SwimGame::init(char *name) {
   std::cout << "Initializing... " << std::flush;
 
   /* Initializes the timer, audio, video, joystick,
@@ -45,7 +45,7 @@ bool Game::init(char *name) {
   return running;
 }
 
-void Game::update() {
+void SwimGame::update() {
   SDL_Event event;
 
   while (SDL_PollEvent(&event)) {
@@ -57,7 +57,7 @@ void Game::update() {
   }
 }
 
-void Game::render() {
+void SwimGame::render() {
   /* Clear screen */
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
   SDL_RenderClear(renderer);
@@ -66,7 +66,7 @@ void Game::render() {
   SDL_RenderPresent(renderer);
 }
 
-void Game::quit() {
+void SwimGame::quit() {
   /* Release resources */
   if (renderer) {
     SDL_DestroyRenderer(renderer);
