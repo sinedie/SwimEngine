@@ -1,5 +1,5 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef SWIM_GAME_H
+#define SWIM_GAME_H
 
 #include <SDL.h>
 #include <SDL_image.h>
