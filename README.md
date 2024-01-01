@@ -6,12 +6,12 @@
 
 Proof of concept to try/learn a little of:
 
-Plugin architecture
-Oberserver pattern
-ECS (Entity-Component-Systems)
-Finite-state machines
-Improve C++ skills
-Graphics and low-level hardware management
+- Plugin architecture
+- Oberserver pattern
+- ECS (Entity-Component-Systems)
+- Finite-state machines
+- Improve C++ skills
+- Graphics and low-level hardware management
 
 # TODO
 
