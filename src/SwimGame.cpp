@@ -1,8 +1,13 @@
-#include <Game.h>
+#include <SwimGame.h>
 
 SDL_Renderer *SwimGame::renderer = nullptr;
 
 bool SwimGame::isRunning() { return running; }
+
+void SwimGame::loadSystems() {
+  SwimSystem *sys = new SwimSystem("test.dll");
+  systems.push_back(sys);
+}
 
 bool SwimGame::init(char *name) {
   std::cout << "Initializing... " << std::flush;
@@ -40,6 +45,8 @@ bool SwimGame::init(char *name) {
     return false;
   }
 
+  loadSystems();
+
   running = true;
   std::cout << "Done" << std::endl;
   return running;
@@ -54,6 +61,10 @@ void SwimGame::update() {
       running = false;
       break;
     }
+  }
+
+  for (auto &s : systems) {
+    s->test();
   }
 }
 
@@ -75,6 +86,10 @@ void SwimGame::quit() {
   if (window) {
     SDL_DestroyWindow(window);
     window = NULL;
+  }
+
+  for (auto &s : systems) {
+    delete s;
   }
 
   // Quit SDL subsystems

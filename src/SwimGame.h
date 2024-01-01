@@ -3,7 +3,9 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SwimSystem.h>
 #include <iostream>
+#include <vector>
 
 #define SCREEN_WIDTH 920
 #define SCREEN_HEIGHT 480
@@ -14,13 +16,16 @@ class SwimGame {
 private:
   bool running = false;
   SDL_Window *window;
+  std::vector<SwimSystem *> systems;
+
+  void loadSystems();
 
 public:
   static SDL_Renderer *renderer;
 
   bool isRunning();
 
-  bool init(char* name);
+  bool init(char *name);
   void update();
   void render();
   void quit();

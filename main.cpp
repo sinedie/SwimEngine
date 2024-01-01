@@ -2,7 +2,7 @@
 #include <SDL_image.h>
 #include <iostream>
 
-#include <Game.h>
+#include <SwimGame.h>
 
 int main(int argc, char *args[]) {
   SwimGame game = SwimGame();
