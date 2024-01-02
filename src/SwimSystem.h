@@ -4,20 +4,22 @@
 #include <BaseSwimSystem.h>
 #include <SDL.h>
 
+typedef BaseSwimSystem *(*SystemCreator)();
+
 class SwimSystem {
 private:
   void *dll;
   BaseSwimSystem *system;
 
 public:
-  SwimSystem(char *path) {
+  SwimSystem(const char *path) {
     dll = SDL_LoadObject(path);
     if (!dll) {
       return;
     }
 
-    BaseSwimSystem *(*createSystem)() =
-        (BaseSwimSystem * (*)()) SDL_LoadFunction(dll, "createSystem");
+    SystemCreator createSystem =
+        (SystemCreator)SDL_LoadFunction(dll, "createSystem");
 
     if (!createSystem) {
       return;

@@ -26,4 +26,4 @@ all : $(OBJS)
 	$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
 dll :
-	$(CC) ./src/systems/*.cpp  -I ./SDL2/include/SDL2 -I ./src/systems/ -fpic -shared -o test.dll
+	$(CC) ./src/systems/*.cpp  -I ./SDL2/include/SDL2 -I ./src/systems/ -fpic -shared -o ./plugins/systems/test.dll

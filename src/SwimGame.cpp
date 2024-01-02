@@ -5,12 +5,21 @@ SDL_Renderer *SwimGame::renderer = nullptr;
 bool SwimGame::isRunning() { return running; }
 
 void SwimGame::loadSystems() {
-  SwimSystem *sys = new SwimSystem("test.dll");
-  systems.push_back(sys);
+
+  std::string path = "./plugins/systems/";
+
+  for (const auto &entry : std::filesystem::directory_iterator(path)) {
+    std::cout << "Loading " << entry.path() << "... " << std::flush;
+
+    SwimSystem *sys = new SwimSystem(entry.path().string().c_str());
+    systems.push_back(sys);
+
+    std::cout << "DONE " << std::endl;
+  }
 }
 
 bool SwimGame::init(char *name) {
-  std::cout << "Initializing... " << std::flush;
+  std::cout << "Initializing... " << std::endl;
 
   /* Initializes the timer, audio, video, joystick,
   haptic, gamecontroller and events subsystems */
@@ -48,7 +57,7 @@ bool SwimGame::init(char *name) {
   loadSystems();
 
   running = true;
-  std::cout << "Done" << std::endl;
+  std::cout << "Initialized" << std::endl;
   return running;
 }
 
@@ -63,9 +72,9 @@ void SwimGame::update() {
     }
   }
 
-  for (auto &s : systems) {
-    s->test();
-  }
+  // for (auto &s : systems) {
+  //   s->test();
+  // }
 }
 
 void SwimGame::render() {
