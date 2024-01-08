@@ -72,8 +72,6 @@ bool SwimGame::init(char *name) {
   loadSystems();
 
   components.push_back(swimComponents[0]->create());
-  std::cout << components[0]->getType()->name() << std::endl;
-  systems[0]->test(components[0]);
 
   running = true;
   std::cout << "Initialized" << std::endl;
@@ -91,9 +89,9 @@ void SwimGame::update() {
     }
   }
 
-  // for (auto &s : systems) {
-  //   s->test();
-  // }
+  for (auto &s : systems) {
+    s->update(components[0]);
+  }
 }
 
 void SwimGame::render() {

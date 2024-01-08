@@ -5,7 +5,7 @@ OBJS = ./src/*.cpp main.cpp
 CC = g++
 
 #INCLUDE_PATHS specifies the additional include paths we'll need
-INCLUDE_PATHS = -I ./src -I ./src/systems/ -I ./src/components
+INCLUDE_PATHS = -I ./src -I ./src/systems/ -I ./src/components -I ./src/utils
 
 #LIBRARY_PATHS specifies the additional library paths we'll need
 LIBRARY_PATHS = 
@@ -23,9 +23,19 @@ LINKER_FLAGS = -lSDL2main -lSDL2 -lSDL2_image
 OBJ_NAME = main
 
 #This is the target that compiles our executable
-all : $(OBJS)
+all : dll main
+
+main : $(OBJS)
 	$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
-dll :
-	$(CC) ./src/systems/*.cpp  $(INCLUDE_PATHS) $(SHARED) -o ./plugins/systems/test
-	$(CC) ./src/components/*.cpp $(INCLUDE_PATHS) $(SHARED) -o ./plugins/components/test
+dll : systems components
+
+systems: ./src/systems/*.cpp
+	for file in $(notdir $(basename $^)) ; do \
+		eval $(CC) ./src/systems/$${file}.cpp  $(INCLUDE_PATHS) $(SHARED) -o ./plugins/systems/$${file} ; \
+	done
+
+components: ./src/components/*.cpp
+	for file in $(notdir $(basename $^)) ; do \
+		eval $(CC) ./src/components/$${file}.cpp  $(INCLUDE_PATHS) $(SHARED) -o ./plugins/components/$${file} ; \
+	done

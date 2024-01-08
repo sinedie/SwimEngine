@@ -28,7 +28,7 @@ public:
     system = createSystem();
   }
 
-  void test(BaseComponent *component) { system->test(component); }
+  void update(BaseComponent *component) { system->update(component); }
 
   ~SwimSystem() {
     SDL_UnloadObject(dll);
