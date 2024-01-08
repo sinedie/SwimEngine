@@ -6,6 +6,7 @@
 class BaseSwimSystem {
 public:
   virtual void init() = 0;
+  virtual void test(BaseComponent *component) = 0;
 };
 
 #endif

@@ -1,13 +1,14 @@
 #ifndef SWIM_GAME_H
 #define SWIM_GAME_H
 
-#include <SDL.h>
-#include <SDL_image.h>
+#include "SwimComponent.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <SwimSystem.h>
-#include <iostream>
-#include <vector>
-#include <string>
 #include <filesystem>
+#include <iostream>
+#include <string>
+#include <vector>
 
 #define SCREEN_WIDTH 920
 #define SCREEN_HEIGHT 480
@@ -19,8 +20,11 @@ private:
   bool running = false;
   SDL_Window *window;
   std::vector<SwimSystem *> systems;
+  std::vector<SwimComponent *> swimComponents;
+  std::vector<BaseComponent *> components;
 
   void loadSystems();
+  void loadComponents();
 
 public:
   static SDL_Renderer *renderer;

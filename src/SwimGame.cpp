@@ -4,6 +4,20 @@ SDL_Renderer *SwimGame::renderer = nullptr;
 
 bool SwimGame::isRunning() { return running; }
 
+void SwimGame::loadComponents() {
+
+  std::string path = "./plugins/components/";
+
+  for (const auto &entry : std::filesystem::directory_iterator(path)) {
+    std::cout << "Loading " << entry.path() << "... " << std::flush;
+
+    SwimComponent *component = new SwimComponent(entry.path().string().c_str());
+    swimComponents.push_back(component);
+
+    std::cout << "DONE " << std::endl;
+  }
+}
+
 void SwimGame::loadSystems() {
 
   std::string path = "./plugins/systems/";
@@ -54,7 +68,12 @@ bool SwimGame::init(char *name) {
     return false;
   }
 
+  loadComponents();
   loadSystems();
+
+  components.push_back(swimComponents[0]->create());
+  std::cout << components[0]->getType()->name() << std::endl;
+  systems[0]->test(components[0]);
 
   running = true;
   std::cout << "Initialized" << std::endl;
@@ -97,10 +116,17 @@ void SwimGame::quit() {
     window = NULL;
   }
 
+  for (auto &c : components) {
+    delete c;
+  }
+
   for (auto &s : systems) {
     delete s;
   }
 
+  for (auto &c : swimComponents) {
+    delete c;
+  }
   // Quit SDL subsystems
   IMG_Quit();
   SDL_Quit();

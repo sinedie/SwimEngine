@@ -5,10 +5,11 @@ OBJS = ./src/*.cpp main.cpp
 CC = g++
 
 #INCLUDE_PATHS specifies the additional include paths we'll need
-INCLUDE_PATHS = -I ./SDL2/include/SDL2 -I ./src -I ./src/systems/
+INCLUDE_PATHS = -I ./src -I ./src/systems/ -I ./src/components
 
 #LIBRARY_PATHS specifies the additional library paths we'll need
-LIBRARY_PATHS = -L ./SDL2/lib
+LIBRARY_PATHS = 
+SHARED = -fpic -shared 
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
 # -w suppresses all warnings
@@ -16,7 +17,7 @@ LIBRARY_PATHS = -L ./SDL2/lib
 COMPILER_FLAGS = -w #-Wl,-subsystem,windows
 
 #LINKER_FLAGS specifies the libraries we're linking against
-LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
+LINKER_FLAGS = -lSDL2main -lSDL2 -lSDL2_image
 
 #OBJ_NAME specifies the name of our exectuable
 OBJ_NAME = main
@@ -26,4 +27,5 @@ all : $(OBJS)
 	$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
 dll :
-	$(CC) ./src/systems/*.cpp  -I ./SDL2/include/SDL2 -I ./src/systems/ -fpic -shared -o ./plugins/systems/test.dll
+	$(CC) ./src/systems/*.cpp  $(INCLUDE_PATHS) $(SHARED) -o ./plugins/systems/test
+	$(CC) ./src/components/*.cpp $(INCLUDE_PATHS) $(SHARED) -o ./plugins/components/test

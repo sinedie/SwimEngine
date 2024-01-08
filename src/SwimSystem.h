@@ -2,7 +2,7 @@
 #define SWIM_SYSTEM_H
 
 #include <BaseSwimSystem.h>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 typedef BaseSwimSystem *(*SystemCreator)();
 
@@ -28,7 +28,7 @@ public:
     system = createSystem();
   }
 
-  void test() { system->init(); }
+  void test(BaseComponent *component) { system->test(component); }
 
   ~SwimSystem() {
     SDL_UnloadObject(dll);
