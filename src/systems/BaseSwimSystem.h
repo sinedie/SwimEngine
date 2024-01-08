@@ -3,6 +3,7 @@
 
 #include <SwimEntity.h>
 #include <iostream>
+#include <typeinfo>
 #include <vector>
 
 class BaseSwimSystem {
@@ -11,6 +12,7 @@ protected:
 
 public:
   virtual void init() = 0;
+  virtual std::vector<const std::type_info *> requiredComponents() = 0;
 
   void addEntity(SwimEntity *entity) { entities.push_back(entity); }
 

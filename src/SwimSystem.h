@@ -30,6 +30,10 @@ public:
 
   void update() { system->update(); }
 
+  std::vector<const std::type_info *> requiredComponents() {
+    return system->requiredComponents();
+  }
+
   void addEntity(SwimEntity *entity) { system->addEntity(entity); }
 
   void removeEntity(SwimEntity *entity) { system->removeEntity(entity); }
