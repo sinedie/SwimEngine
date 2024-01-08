@@ -71,16 +71,30 @@ bool SwimGame::init(char *name) {
   loadComponents();
   loadSystems();
 
-  BaseComponent *component = swimComponents["Transform"]->create();
-  SwimEntity *entity = new SwimEntity();
+  BaseComponent *transform = swimComponents["Transform"]->create();
+  BaseComponent *controls = swimComponents["Controls"]->create();
 
-  components.push_back(component);
+  components.push_back(transform);
+  components.push_back(controls);
+
+  SwimEntity *entity = new SwimEntity();
+  entity->addComponent(transform);
+  entity->addComponent(controls);
   entities.push_back(entity);
 
-  entity->addComponent(component);
-
   for (auto &s : systems) {
-    s->addEntity(entity);
+    auto requiredComponents = s->requiredComponents();
+    if (requiredComponents.size() == 0) {
+      continue;
+    }
+
+    for (auto &e : entities) {
+      if (std::all_of(
+              requiredComponents.cbegin(), requiredComponents.cend(),
+              [e](auto type) { return e->getComponent(*type) != nullptr; })) {
+        s->addEntity(entity);
+      }
+    }
   }
 
   running = true;

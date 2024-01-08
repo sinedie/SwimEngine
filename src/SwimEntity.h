@@ -32,7 +32,8 @@ public:
                      });
 
     if (it == std::end(components)) {
-      std::cout << "NOT FOUND" << std::endl;
+      std::cout << "Component not found" << std::endl;
+      return nullptr;
     }
 
     return *it;

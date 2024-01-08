@@ -13,6 +13,5 @@ public:
   const std::type_info *getType() override { return &typeid(Transform); }
 };
 
-extern "C" Transform *createComponent() { return new Transform(); };
 
 #endif
