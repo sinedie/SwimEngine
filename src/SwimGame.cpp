@@ -71,7 +71,13 @@ bool SwimGame::init(char *name) {
   loadComponents();
   loadSystems();
 
+  SwimEntity *entity = new SwimEntity();
+
   components.push_back(swimComponents[0]->create());
+  entities.push_back(entity);
+
+  entity->addComponent(components[0]);
+  systems[0]->addEntity(entities[0]);
 
   running = true;
   std::cout << "Initialized" << std::endl;
@@ -90,7 +96,7 @@ void SwimGame::update() {
   }
 
   for (auto &s : systems) {
-    s->update(components[0]);
+    s->update();
   }
 }
 
@@ -114,6 +120,10 @@ void SwimGame::quit() {
     window = NULL;
   }
 
+  for (auto &e : entities) {
+    delete e;
+  }
+
   for (auto &c : components) {
     delete c;
   }
@@ -125,6 +135,7 @@ void SwimGame::quit() {
   for (auto &c : swimComponents) {
     delete c;
   }
+
   // Quit SDL subsystems
   IMG_Quit();
   SDL_Quit();

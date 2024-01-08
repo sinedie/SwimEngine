@@ -20,8 +20,9 @@ private:
   bool running = false;
   SDL_Window *window;
   std::vector<SwimSystem *> systems;
-  std::vector<SwimComponent *> swimComponents;
+  std::vector<SwimEntity *> entities;
   std::vector<BaseComponent *> components;
+  std::vector<SwimComponent *> swimComponents;
 
   void loadSystems();
   void loadComponents();

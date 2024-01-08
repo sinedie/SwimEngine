@@ -28,7 +28,11 @@ public:
     system = createSystem();
   }
 
-  void update(BaseComponent *component) { system->update(component); }
+  void update() { system->update(); }
+
+  void addEntity(SwimEntity *entity) { system->addEntity(entity); }
+
+  void removeEntity(SwimEntity *entity) { system->removeEntity(entity); }
 
   ~SwimSystem() {
     SDL_UnloadObject(dll);

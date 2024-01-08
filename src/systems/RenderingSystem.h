@@ -8,7 +8,7 @@
 class RenderingSystem : public BaseSwimSystem {
 public:
   virtual void init() override;
-  virtual void update(BaseComponent *component) override;
+  virtual void update() override;
 };
 
 extern "C" BaseSwimSystem *createSystem() { return new RenderingSystem(); };
