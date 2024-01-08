@@ -71,13 +71,17 @@ bool SwimGame::init(char *name) {
   loadComponents();
   loadSystems();
 
+  BaseComponent *component = swimComponents[0]->create();
   SwimEntity *entity = new SwimEntity();
 
-  components.push_back(swimComponents[0]->create());
+  components.push_back(component);
   entities.push_back(entity);
 
-  entity->addComponent(components[0]);
-  systems[0]->addEntity(entities[0]);
+  entity->addComponent(component);
+
+  for (auto &s : systems) {
+    s->addEntity(entity);
+  }
 
   running = true;
   std::cout << "Initialized" << std::endl;
