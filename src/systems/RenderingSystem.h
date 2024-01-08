@@ -1,7 +1,6 @@
 #ifndef TEST_SYSTEM_H
 #define TEST_SYSTEM_H
 
-#include <BaseComponent.h>
 #include <BaseSwimSystem.h>
 #include <Transform.h>
 
