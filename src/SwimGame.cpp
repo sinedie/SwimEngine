@@ -12,7 +12,7 @@ void SwimGame::loadComponents() {
     std::cout << "Loading " << entry.path() << "... " << std::flush;
 
     SwimComponent *component = new SwimComponent(entry.path().string().c_str());
-    swimComponents.push_back(component);
+    swimComponents[entry.path().filename()] = component;
 
     std::cout << "DONE " << std::endl;
   }
@@ -71,7 +71,7 @@ bool SwimGame::init(char *name) {
   loadComponents();
   loadSystems();
 
-  BaseComponent *component = swimComponents[0]->create();
+  BaseComponent *component = swimComponents["Transform"]->create();
   SwimEntity *entity = new SwimEntity();
 
   components.push_back(component);
@@ -134,10 +134,6 @@ void SwimGame::quit() {
 
   for (auto &s : systems) {
     delete s;
-  }
-
-  for (auto &c : swimComponents) {
-    delete c;
   }
 
   // Quit SDL subsystems

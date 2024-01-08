@@ -7,6 +7,7 @@
 #include <SwimSystem.h>
 #include <filesystem>
 #include <iostream>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -22,7 +23,7 @@ private:
   std::vector<SwimSystem *> systems;
   std::vector<SwimEntity *> entities;
   std::vector<BaseComponent *> components;
-  std::vector<SwimComponent *> swimComponents;
+  std::map<std::string, SwimComponent *> swimComponents;
 
   void loadSystems();
   void loadComponents();
