@@ -1,7 +1,6 @@
 #ifndef SWIM_COMPONENT_H
 #define SWIM_COMPONENT_H
 
-#include "BaseComponent.h"
 #include <BaseSwimSystem.h>
 #include <SDL2/SDL.h>
 
@@ -13,7 +12,6 @@ private:
   ComponentCreator caller;
 
 public:
-  BaseComponent *component;
   SwimComponent(const char *path) {
     dll = SDL_LoadObject(path);
     if (!dll) {
@@ -27,7 +25,6 @@ public:
 
   ~SwimComponent() {
     SDL_UnloadObject(dll);
-    component = NULL;
     dll = NULL;
   }
 };
