@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = ./src/*.cpp main.cpp 
+OBJS = ./src/*.cpp ./src/utils/*.cpp main.cpp 
 
 #CC specifies which compiler we're using
 CC = g++
