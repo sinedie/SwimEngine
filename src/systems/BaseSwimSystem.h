@@ -17,8 +17,9 @@ public:
   void addEntity(SwimEntity *entity) { entities.push_back(entity); }
 
   void removeEntity(SwimEntity *entity) {
-    std::remove_if(entities.begin(), entities.end(),
-                   [entity](SwimEntity *e) { return e == entity; });
+    auto it = std::remove_if(entities.begin(), entities.end(),
+                             [entity](SwimEntity *e) { return e == entity; });
+    entities.erase(it, entities.end());
   }
 
   virtual void update() = 0;
