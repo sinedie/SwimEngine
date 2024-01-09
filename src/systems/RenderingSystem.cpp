@@ -8,6 +8,7 @@ void RenderingSystem::update() {
   for (auto &e : entities) {
     Transform *transform =
         reinterpret_cast<Transform *>(e->getComponent(typeid(Transform)));
-    std::cout << transform->position.x << std::endl;
+    std::cout << transform->position.x << ", " << transform->position.y
+              << std::endl;
   }
 };

@@ -73,9 +73,11 @@ bool SwimGame::init(char *name) {
 
   BaseComponent *transform = swimComponents["Transform"]->create();
   BaseComponent *controls = swimComponents["Controls"]->create();
+  BaseComponent *motion = swimComponents["Motion"]->create();
 
   components.push_back(transform);
   components.push_back(controls);
+  components.push_back(motion);
 
   SwimEntity *entity = new SwimEntity();
   entity->subscribe("removeComponent", [this](EventManager *entity) {
@@ -88,7 +90,8 @@ bool SwimGame::init(char *name) {
   });
   entity->addComponent(transform);
   entity->addComponent(controls);
-  entity->removeComponent(controls->getType());
+  entity->addComponent(motion);
+  // entity->removeComponent(controls->getType());
 
   entities.push_back(entity);
 

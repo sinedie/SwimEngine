@@ -12,11 +12,11 @@ void EventManager::unsubscribe(std::string eventType,
                                std::function<void(EventManager *)> func) {
   std::cout << "Unsubscribe: " << eventType << std::endl;
 
-  auto it = std::remove_if(
-      listeners[eventType].begin(), listeners[eventType].end(),
-      [func](std::function<void(EventManager *)> *f) { return f == &func; });
+  // auto it = std::remove_if(
+  //     listeners[eventType].begin(), listeners[eventType].end(),
+  //     [func](std::function<void(EventManager *)> *f) { return f == &func; });
 
-  listeners[eventType].erase(it, listeners[eventType].end());
+  // listeners[eventType].erase(it, listeners[eventType].end());
 }
 
 void EventManager::notify(std::string eventType) {

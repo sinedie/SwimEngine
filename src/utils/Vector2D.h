@@ -7,8 +7,8 @@ public:
 
   Vector2D(){};
   Vector2D(T x, T y) {
-    x(x);
-    y(y);
+    this->x = x;
+    this->y = y;
   }
 
   Vector2D<T> operator+(Vector2D<T> const &vector) {
@@ -22,6 +22,23 @@ public:
   }
   Vector2D<T> operator*(float number) {
     return Vector2D<T>(x * number, y * number);
+  }
+
+  void operator+=(Vector2D<T> const &vector) {
+    x += vector.x;
+    y += vector.y;
+  }
+  void operator-=(Vector2D<T> const &vector) {
+    x -= vector.x;
+    y -= vector.y;
+  }
+  void operator*=(float number) {
+    x *= number;
+    y *= number;
+  }
+  void operator/=(float number) {
+    x /= number;
+    y /= number;
   }
 
   float magnitude() { return sqrt(pow(x, 2) + pow(y, 2)); }
