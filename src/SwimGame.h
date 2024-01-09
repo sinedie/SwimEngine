@@ -2,6 +2,7 @@
 #define SWIM_GAME_H
 
 #include "SwimComponent.h"
+#include <EventManager.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SwimSystem.h>
@@ -27,6 +28,7 @@ private:
 
   void loadSystems();
   void loadComponents();
+  void checkEntitySystems(SwimEntity *entity);
 
 public:
   static SDL_Renderer *renderer;

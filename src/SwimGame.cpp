@@ -78,28 +78,41 @@ bool SwimGame::init(char *name) {
   components.push_back(controls);
 
   SwimEntity *entity = new SwimEntity();
+  entity->subscribe("removeComponent", [this](EventManager *entity) {
+    std::cout << "Remove Component" << std::endl;
+    checkEntitySystems(reinterpret_cast<SwimEntity *>(entity));
+  });
+  entity->subscribe("addComponent", [this](EventManager *entity) {
+    std::cout << "Add Component" << std::endl;
+    checkEntitySystems(reinterpret_cast<SwimEntity *>(entity));
+  });
   entity->addComponent(transform);
   entity->addComponent(controls);
+  entity->removeComponent(controls->getType());
+
   entities.push_back(entity);
-
-  for (auto &s : systems) {
-    auto requiredComponents = s->requiredComponents();
-    if (requiredComponents.size() == 0) {
-      continue;
-    }
-
-    for (auto &e : entities) {
-      if (std::all_of(
-              requiredComponents.cbegin(), requiredComponents.cend(),
-              [e](auto type) { return e->getComponent(*type) != nullptr; })) {
-        s->addEntity(entity);
-      }
-    }
-  }
 
   running = true;
   std::cout << "Initialized" << std::endl;
   return running;
+}
+
+void SwimGame::checkEntitySystems(SwimEntity *entity) {
+  std::cout << "checkEntitySystems" << std::endl;
+  for (auto &s : systems) {
+    s->removeEntity(entity);
+
+    auto reqComp = s->requiredComponents();
+    if (reqComp.size() == 0) {
+      continue;
+    }
+
+    if (std::all_of(reqComp.cbegin(), reqComp.cend(), [entity](auto type) {
+          return entity->getComponent(*type) != nullptr;
+        })) {
+      s->addEntity(entity);
+    }
+  }
 }
 
 void SwimGame::update() {
@@ -116,6 +129,11 @@ void SwimGame::update() {
   for (auto &s : systems) {
     s->update();
   }
+
+  auto it = std::remove_if(
+      components.begin(), components.end(),
+      [](BaseComponent *component) { return !component->isActive(); });
+  components.erase(it, components.end());
 }
 
 void SwimGame::render() {
