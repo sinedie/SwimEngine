@@ -1,5 +1,5 @@
-#ifndef TEST_SYSTEM_H
-#define TEST_SYSTEM_H
+#ifndef CONTROLS_SYSTEM_H
+#define CONTROLS_SYSTEM_H
 
 #include <BaseSwimSystem.h>
 #include <Controls.h>

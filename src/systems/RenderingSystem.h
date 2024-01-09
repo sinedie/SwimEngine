@@ -1,5 +1,5 @@
-#ifndef TEST_SYSTEM_H
-#define TEST_SYSTEM_H
+#ifndef RENDERING_SYSTEM_H
+#define RENDERING_SYSTEM_H
 
 #include <BaseSwimSystem.h>
 #include <Transform.h>
